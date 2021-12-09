@@ -15,6 +15,7 @@ const Menu = () => {
          querySnapshot.forEach((doc) => {
             docs.push({ ...doc.data(), id: doc.id });
          });
+
          setMenus(docs);
       });
    };
@@ -24,7 +25,7 @@ const Menu = () => {
          await db.collection("menus").doc(id).delete();
          toast("Menu Removed Successfully", {
             type: "error",
-            autoClose: 2000,
+            autoClose: 1500,
          });
       }
    };
@@ -39,6 +40,7 @@ const Menu = () => {
             await db.collection("menus").doc().set(linkObject);
             toast("New Menu Added", {
                type: "success",
+               autoClose: 1500,
             });
          } else {
             await db.collection("menus").doc(currentId).update(linkObject);
@@ -54,16 +56,65 @@ const Menu = () => {
 
    return (
       <>
-         <div className="col-md-4 mt-4">
+         <div className="col-md-4 mt-4 p-4">
             <MenuForm {...{ addOrEditMenu, currentId }} />
          </div>
-         <div className="col-md-8 ">
-            {menus.map((item) => (
-               <MenuItem
-                  {...{ onDeleteMenu, setCurrentId, item }}
-                  key={item.id}
-               />
-            ))}
+         <div className="col-md-8 mt-3 p-4">
+            {menus.map((item) => {
+               if (item.section === "Camarones") {
+                  return (
+                     <MenuItem
+                        {...{ onDeleteMenu, setCurrentId, item }}
+                        key={item.id}
+                     />
+                  );
+               }
+               return "";
+            })}
+            {menus.map((item) => {
+               if (item.section === "Pescados") {
+                  return (
+                     <MenuItem
+                        {...{ onDeleteMenu, setCurrentId, item }}
+                        key={item.id}
+                     />
+                  );
+               }
+               return "";
+            })}
+            {menus.map((item) => {
+               if (item.section === "Cocteleria") {
+                  return (
+                     <MenuItem
+                        {...{ onDeleteMenu, setCurrentId, item }}
+                        key={item.id}
+                     />
+                  );
+               }
+               return "";
+            })}
+            {menus.map((item) => {
+               if (item.section === "Bebidas") {
+                  return (
+                     <MenuItem
+                        {...{ onDeleteMenu, setCurrentId, item }}
+                        key={item.id}
+                     />
+                  );
+               }
+               return "";
+            })}
+            {menus.map((item) => {
+               if (item.section === "Otros") {
+                  return (
+                     <MenuItem
+                        {...{ onDeleteMenu, setCurrentId, item }}
+                        key={item.id}
+                     />
+                  );
+               }
+               return "";
+            })}
          </div>
       </>
    );

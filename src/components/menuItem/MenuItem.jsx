@@ -3,7 +3,7 @@ import React from "react";
 const MenuItem = (props) => {
    const { onDeleteMenu, setCurrentId, item } = props;
    return (
-      <div className="card mt-4  ">
+      <div className="card  mt-2 ">
          <div className="d-flex justify-content-between card-header">
             <h4 className="text-primary ">{item.name}</h4>
             <div>
@@ -29,16 +29,19 @@ const MenuItem = (props) => {
             <div className="d-flex justify-content-between">
                <span>$ {item.price}</span>
                <div>
-                  <span className="badge rounded-pill bg-success mx-2">
-                     {item.show ? "Visible" : "Hidden"}
-                  </span>
                   {item.promotion ? (
-                     <span className="badge rounded-pill bg-primary">
+                     <span className="badge rounded-pill bg-warning">
                         Promotion
                      </span>
                   ) : (
                      ""
                   )}
+                  <span className="badge rounded-pill  mx-2 bg-info">
+                     {item.section}
+                  </span>
+                  <span className="badge rounded-pill  mx-2 bg-light">
+                     {item.show ? "Visible" : "Hidden"}
+                  </span>
                </div>
             </div>
          </div>

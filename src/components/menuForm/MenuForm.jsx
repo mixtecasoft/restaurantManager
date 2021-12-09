@@ -13,6 +13,7 @@ const MenuForm = (props) => {
       show: false,
       promotion: false,
       section: "",
+      recipe: "No recipe found",
    };
 
    const [values, setValues] = useState(initialStateValues);
@@ -20,7 +21,6 @@ const MenuForm = (props) => {
    const handleInputChange = (e) => {
       const { name, value } = e.target;
       setValues({ ...values, [name]: value });
-      console.log(value);
    };
 
    const handleCheckboxChange = (e) => {
@@ -130,10 +130,11 @@ const MenuForm = (props) => {
                         onChange={handleInputChange}
                      >
                         <option value="">-- Please choose an option --</option>
-                        <option value="camarones">Camarones</option>
-                        <option value="pescados">Pescados</option>
-                        <option value="cocteleria">Coctelería</option>
-                        <option value="bebidas">Bebidas</option>
+                        <option value="Camarones">Camarones</option>
+                        <option value="Pescados">Pescados</option>
+                        <option value="Cocteleria">Coctelería</option>
+                        <option value="Bebidas">Bebidas</option>
+                        <option value="Otros">Otros</option>
                      </select>
                   </div>
                   <div className="form-check form-switch mb-3">
