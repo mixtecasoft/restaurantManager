@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MenuForm from "../../components/menuForm/MenuForm";
-import MenuItem from "../../components/menuItem/MenuItem";
+import MenuForm from "../../../components/admin/menuForm/MenuForm";
+import MenuItem from "../../../components/admin/menuItem/MenuItem";
 
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const Menu = () => {

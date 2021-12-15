@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import RecipeForm from "../../components/recipeForm/RecipeForm";
-import RecipeItem from "../../components/recipeItem/RecipeItem";
+import RecipeForm from "../../../components/admin/recipeForm/RecipeForm";
+import RecipeItem from "../../../components/admin/recipeItem/RecipeItem";
 import { Accordion } from "react-bootstrap";
 
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const Recipes = () => {

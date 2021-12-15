@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import MenuForm from "../../components/menuForm/MenuForm";
-import MenuItem from "../../components/menuItem/MenuItem";
-import NewOrder from "../../components/newOrder/NewOrder";
+import MenuForm from "../../../components/admin/menuForm/MenuForm";
+import MenuItem from "../../../components/admin/menuItem/MenuItem";
+import NewOrder from "../../../components/admin/newOrder/NewOrder";
 import { Button } from "react-bootstrap";
 
 import "./Orders.css";
 
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const Orders = () => {
