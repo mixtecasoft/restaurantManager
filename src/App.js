@@ -10,7 +10,7 @@ import Recipes from "./pages/admin/recipes/Recipes";
 import "./App.css";
 
 import { db } from "./firebase";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
@@ -18,6 +18,24 @@ const App = () => {
    const [orders, setOrders] = useState([]);
    const [currentId, setCurrentId] = useState("");
    const [orderId, setOrderId] = useState("");
+
+   const notifyRemoved = () =>
+      toast("Removed Successfully", {
+         type: "error",
+         autoClose: 2000,
+      });
+
+   const notifyAdded = () =>
+      toast("Added Successfully", {
+         type: "success",
+         autoClose: 2000,
+      });
+
+   const notifyUpdated = () =>
+      toast("Updated Successfully", {
+         type: "info",
+         autoClose: 2000,
+      });
 
    const getData = async () => {
       db.collection("menus").onSnapshot((querySnapshot) => {
@@ -46,20 +64,14 @@ const App = () => {
    const onDeleteMenu = async (id) => {
       if (window.confirm("Are you sure you want to delete this Menu?")) {
          await db.collection("menus").doc(id).delete();
-         ToastContainer("Menu Removed Successfully", {
-            type: "error",
-            autoClose: 2000,
-         });
+         notifyRemoved();
       }
    };
 
    const onDeleteOrder = async (id) => {
       if (window.confirm("Are you sure you want to delete this Order?")) {
          await db.collection("orders").doc(id).delete();
-         ToastContainer("Order Removed Successfully", {
-            type: "error",
-            autoClose: 2000,
-         });
+         notifyRemoved();
       }
    };
 
@@ -67,15 +79,11 @@ const App = () => {
       try {
          if (currentId === "") {
             await db.collection("menus").doc().set(linkObject);
-            ToastContainer("New Menu Added", {
-               type: "success",
-            });
+            notifyAdded();
          } else {
             await db.collection("menus").doc(currentId).update(linkObject);
-            ToastContainer("Menu Updated Successfully", {
-               type: "info",
-            });
             setCurrentId("");
+            notifyUpdated();
          }
       } catch (error) {
          console.error(error);
@@ -90,15 +98,11 @@ const App = () => {
       try {
          if (orderId === "") {
             await db.collection("orders").doc().set(linkObject);
-            ToastContainer("New Order Added", {
-               type: "success",
-            });
+            notifyAdded();
          } else {
             await db.collection("orders").doc(orderId).update(linkObject);
-            ToastContainer("Order Updated Successfully", {
-               type: "info",
-            });
             setOrderId("");
+            notifyUpdated();
          }
       } catch (error) {
          console.error(error);
