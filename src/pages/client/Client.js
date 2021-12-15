@@ -72,6 +72,12 @@ const Client = () => {
          <Navbar toggle={toggle} />
          <HeroSection />
          <Menu
+            heading="Coctelería"
+            data={cocteleria}
+            props={dark}
+            id={"cocteleria"}
+         />
+         <Menu
             heading="Camarónes"
             data={camarones}
             props={dark}
@@ -82,12 +88,6 @@ const Client = () => {
             data={pescados}
             props={light}
             id={"pescados"}
-         />
-         <Menu
-            heading="Coctelería"
-            data={cocteleria}
-            props={dark}
-            id={"cocteleria"}
          />
          <Menu heading="Bebidas" data={bebidas} props={light} id={"bebidas"} />
          <Menu heading="Otros" data={otros} props={dark} id={"otros"} />

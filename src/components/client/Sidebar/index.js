@@ -18,15 +18,16 @@ export const Sidebar = ({ isOpen, toggle }) => {
          </Icon>
          <SidebarWrapper>
             <SidebarMenu>
+               <SidebarLink to="cocteleria" onClick={toggle}>
+                  Coctelería
+               </SidebarLink>
                <SidebarLink to="camarones" onClick={toggle}>
                   Camarónes
                </SidebarLink>
                <SidebarLink to="pescados" onClick={toggle}>
                   Pescados
                </SidebarLink>
-               <SidebarLink to="cocteleria" onClick={toggle}>
-                  Coctelería
-               </SidebarLink>
+
                <SidebarLink to="bebidas" onClick={toggle}>
                   Bebidas
                </SidebarLink>

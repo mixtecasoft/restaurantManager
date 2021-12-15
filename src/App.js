@@ -36,7 +36,7 @@ function App() {
                   <Route exact path="/admin">
                      <Orders />
                   </Route>
-                  <Route path="/food">
+                  <Route path="/dsdklsfhrhwekl">
                      <Menu />
                   </Route>
                   <Route path="/recipes">

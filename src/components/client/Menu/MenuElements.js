@@ -17,6 +17,13 @@ export const ProductsContainer = styled.div`
    padding: 5rem calc((100vw - 1300px) / 2);
 `;
 
+export const ProductsHeading = styled.h1`
+   font-size: clamp(2rem, 2.5vw, 3rem);
+   text-align: center;
+   margin-bottom: 5rem;
+   color: ${({ greenHeader }) => (greenHeader ? "#01bf71" : "#fff")};
+`;
+
 export const ProductWrapper = styled.div`
    display: flex;
    flex-wrap: wrap;
@@ -37,26 +44,18 @@ export const ProductImg = styled.img`
    box-shadow: 8px 8px ${({ lightBg }) => (lightBg ? "#01bf71" : "#ffc500")};
 `;
 
-export const ProductsHeading = styled.h1`
-   font-size: clamp(2rem, 2.5vw, 3rem);
+export const ProductInfo = styled.div`
+   display: flex;
+   height: 250px;
+   flex-direction: column;
    text-align: center;
-   margin-bottom: 5rem;
-   color: ${({ greenHeader }) => (greenHeader ? "#01bf71" : "#fff")};
 `;
 
 export const ProductTitle = styled.h2`
    font-size: 1.8rem;
    font-weight: bold;
+   margin-top: 20px;
    color: ${({ lightBg }) => (lightBg ? "#01bf71" : "#ffc500")};
-`;
-
-export const ProductInfo = styled.div`
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   padding: 0.5rem;
-   text-align: center;
 `;
 
 export const ProductDesc = styled.p`
@@ -66,9 +65,9 @@ export const ProductDesc = styled.p`
 
 export const ProductPrice = styled.p`
    color: ${({ lightBg }) => (lightBg ? "#000" : "#fff")};
-   margin-bottom: 1rem;
    font-size: 1.5rem;
    font-weight: bold;
+   margin-bottom: 10px;
 `;
 
 export const ProductButton = styled.button`
