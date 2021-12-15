@@ -39,7 +39,7 @@
    margin: auto;
    height: 625px;
    padding-top: 0px;
-   display: flex;
+   display: grid;
 }
 
 .animateSlideUp {

@@ -6,23 +6,12 @@ import { Accordion } from "react-bootstrap";
 import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
-const Recipes = () => {
-   const [menus, setMenus] = useState([]);
+const Recipes = (props) => {
+   const {menus}=props;
+   
    const [currentId, setCurrentId] = useState("");
 
-   const getMenus = async () => {
-      db.collection("menus").onSnapshot((querySnapshot) => {
-         const docs = [];
-         querySnapshot.forEach((doc) => {
-            docs.push({ ...doc.data(), id: doc.id });
-         });
-         setMenus(docs);
-      });
-   };
-
-   useEffect(() => {
-      getMenus();
-   }, []);
+  
 
    const editRecipe = async (linkObject) => {
       try {

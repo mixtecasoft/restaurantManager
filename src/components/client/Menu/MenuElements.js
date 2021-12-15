@@ -49,6 +49,7 @@ export const ProductInfo = styled.div`
    height: 250px;
    flex-direction: column;
    text-align: center;
+   justify-content: space-between;
 `;
 
 export const ProductTitle = styled.h2`
@@ -59,7 +60,6 @@ export const ProductTitle = styled.h2`
 `;
 
 export const ProductDesc = styled.p`
-   margin-bottom: 1rem;
    color: ${({ lightBg }) => (lightBg ? "#000" : "#01bf71")};
 `;
 
@@ -67,7 +67,6 @@ export const ProductPrice = styled.p`
    color: ${({ lightBg }) => (lightBg ? "#000" : "#fff")};
    font-size: 1.5rem;
    font-weight: bold;
-   margin-bottom: 10px;
 `;
 
 export const ProductButton = styled.button`

@@ -1,59 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MenuForm from "../../../components/admin/menuForm/MenuForm";
 import MenuItem from "../../../components/admin/menuItem/MenuItem";
 
-import { db } from "../../../firebase";
-import { toast } from "react-toastify";
-
-const Menu = () => {
-   const [menus, setMenus] = useState([]);
-   const [currentId, setCurrentId] = useState("");
-
-   const getMenus = async () => {
-      db.collection("menus").onSnapshot((querySnapshot) => {
-         const docs = [];
-         querySnapshot.forEach((doc) => {
-            docs.push({ ...doc.data(), id: doc.id });
-         });
-
-         setMenus(docs);
-      });
-   };
-
-   const onDeleteMenu = async (id) => {
-      if (window.confirm("Are you sure you want to delete this Menu?")) {
-         await db.collection("menus").doc(id).delete();
-         toast("Menu Removed Successfully", {
-            type: "error",
-            autoClose: 1500,
-         });
-      }
-   };
-
-   useEffect(() => {
-      getMenus();
-   }, []);
-
-   const addOrEditMenu = async (linkObject) => {
-      try {
-         if (currentId === "") {
-            await db.collection("menus").doc().set(linkObject);
-            toast("New Menu Added", {
-               type: "success",
-               autoClose: 1500,
-            });
-         } else {
-            await db.collection("menus").doc(currentId).update(linkObject);
-            toast("Menu Updated Successfully", {
-               type: "info",
-            });
-            setCurrentId("");
-         }
-      } catch (error) {
-         console.error(error);
-      }
-   };
-
+const Menu = (props) => {
+   const { menus, onDeleteMenu, setCurrentId, addOrEditMenu, currentId } =
+      props;
    return (
       <>
          <div className="col-md-4 mt-4 p-4">

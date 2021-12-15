@@ -4,7 +4,7 @@ import InfoSection from "../../components/client/InfoSection";
 import { homeObjTwo } from "../../components/client/InfoSection/Data";
 import Navbar from "../../components/client/Navbar";
 import Menu from "../../components/client/Menu";
-import { dark, light } from "../../components/client/Menu/data";
+import { dark, light } from "../../components/client/Menu/MenuElements";
 import Sidebar from "../../components/client/Sidebar";
 import Footer from "../../components/client/Footer";
 
