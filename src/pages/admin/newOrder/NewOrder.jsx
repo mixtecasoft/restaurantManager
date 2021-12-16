@@ -17,6 +17,7 @@ const NewOrder = (props) => {
       order: [],
       date: "",
       time: "",
+      status: "commited",
    };
 
    const [values, setValues] = useState(initialStateValues);

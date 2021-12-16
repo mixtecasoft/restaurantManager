@@ -15,7 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
    const [menus, setMenus] = useState([]);
-   const [orders, setOrders] = useState([]);
+   const [commited, setCommited] = useState([]);
+   const [progress, setProgress] = useState([]);
+   const [served, setServed] = useState([]);
    const [currentId, setCurrentId] = useState("");
    const [orderId, setOrderId] = useState("");
 
@@ -52,12 +54,28 @@ const App = () => {
          setMenus(docs);
       });
       db.collection("orders").onSnapshot((querySnapshot) => {
-         const docs = [];
+         const commited = [];
+         const progress = [];
+         const served = [];
          querySnapshot.forEach((doc) => {
-            docs.push({ ...doc.data(), id: doc.id });
+            switch (doc.data().status) {
+               case "commited":
+                  commited.push({ ...doc.data(), id: doc.id });
+                  break;
+               case "progress":
+                  progress.push({ ...doc.data(), id: doc.id });
+                  break;
+               case "served":
+                  served.push({ ...doc.data(), id: doc.id });
+                  break;
+               default:
+                  console.log(doc.data().status);
+            }
          });
 
-         setOrders(docs);
+         setCommited(commited);
+         setProgress(progress);
+         setServed(served);
       });
    };
 
@@ -121,10 +139,11 @@ const App = () => {
                   </Route>
                   <Route exact path="/orders">
                      <Orders
-                        orders={orders}
+                        commited={commited}
+                        progress={progress}
+                        served={served}
                         onDeleteOrder={onDeleteOrder}
                         setOrderId={setOrderId}
-                        addOrEditOrder={addOrEditOrder}
                      />
                   </Route>
                   <Route exact path="/neworder">
