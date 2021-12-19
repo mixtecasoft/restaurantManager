@@ -19,11 +19,17 @@ const Footer = () => {
                <SocialMediaWrap>
                   {/* <SocialLogo>Contacto </SocialLogo> */}
                   <SocialIcons>
-                     <Link to="/status"> Status</Link>
+                     <SocialLogo to="/food"> Food</SocialLogo>
 
-                     <Link to="/kitchen"> Kitchen</Link>
+                     <SocialLogo to="/recipes"> Recipes</SocialLogo>
 
-                     <Link to="/food"> Food</Link>
+                     <SocialLogo to="/neworder"> New Order</SocialLogo>
+
+                     <SocialLogo to="/status"> Status</SocialLogo>
+
+                     <SocialLogo to="/kitchen"> Kitchen</SocialLogo>
+
+                     <SocialLogo to="/payments"> Payments</SocialLogo>
 
                      <SocialIconLink
                         href="https://www.facebook.com/Rincón-ecológico-Los-cachimbos-100810408515490/"
