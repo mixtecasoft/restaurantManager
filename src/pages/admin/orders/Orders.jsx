@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
 import OrderCard from "../../../components/admin/orderCard/OrderCard";
+import { Link } from "react-router-dom";
 
 import { db } from "../../../firebase";
 
@@ -51,12 +51,22 @@ const Orders = (props) => {
       <>
          <div className="data responsive-top-margin animateFadeIn animateSlideUp is-animate">
             <div className="mb-2 ">
-               <Button variant="success" className="mx-4" href="/payments">
-                  Payments
-               </Button>
-               <Button variant="primary" className="mx-1" href="/neworder">
-                  Add or Edit Order
-               </Button>
+               <Link to="/payments">
+                  <button
+                     type="button"
+                     className="btn btn-outline-success justify-content-end mx-4"
+                  >
+                     Payments
+                  </button>
+               </Link>
+               <Link to="/neworder">
+                  <button
+                     type="button"
+                     className="btn btn-outline-primary justify-content-end mx-1"
+                  >
+                     Add or Edit Order
+                  </button>
+               </Link>
             </div>
 
             <div className="data--container">
