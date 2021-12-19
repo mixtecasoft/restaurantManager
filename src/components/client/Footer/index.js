@@ -1,5 +1,6 @@
 import React from "react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
    FooterContainer,
    FooterWrap,
@@ -18,6 +19,12 @@ const Footer = () => {
                <SocialMediaWrap>
                   {/* <SocialLogo>Contacto </SocialLogo> */}
                   <SocialIcons>
+                     <Link to="/status"> Status</Link>
+
+                     <Link to="/kitchen"> Kitchen</Link>
+
+                     <Link to="/food"> Food</Link>
+
                      <SocialIconLink
                         href="https://www.facebook.com/Rincón-ecológico-Los-cachimbos-100810408515490/"
                         target="_blank"
