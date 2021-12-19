@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
-import OrderCar from "../../../components/admin/orderCard/OrderCar";
+import { Table } from "react-bootstrap";
+import OrderItem from "../../../components/admin/orderItem/OrderItem";
+import { Link } from "react-router-dom";
 
 import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const NewOrder = (props) => {
-   const { menus, addOrEditOrder, orderId } = props;
+   const { menus, addOrEditOrder, orderId, orders, setOrderId } = props;
 
    const initialStateValues = {
-      clientName: "",
+      client: "",
       payMethod: "cash",
       total: 0,
       address: "Cachimbos",
       phone: "",
-      order: [],
+      food: [],
       date: "",
       time: "",
-      status: "commited",
+      status: "",
    };
 
    const [values, setValues] = useState(initialStateValues);
+   const [food, setFood] = useState([]);
+   const [orderTotal, setOrderTotal] = useState(0);
 
    const getDate = () => {
       const today = new Date();
@@ -37,35 +40,132 @@ const NewOrder = (props) => {
       return { date, time };
    };
 
+   const verifyExist = (existItem) => {
+      var i = 0;
+      var existUncommited = false;
+      var position = 0;
+      if (existItem.length !== 0) {
+         existItem.forEach((item) => {
+            if (item.status === "") {
+               existUncommited = true;
+               position = i;
+            }
+            i = i + 1;
+         });
+      }
+
+      return { existUncommited, position };
+   };
+
    const handleInputChange = (e) => {
       const { name, value } = e.target;
       setValues({ ...values, [name]: value });
    };
 
+   const handleClientChange = (e) => {
+      const { value } = e.target;
+      setOrderId(value);
+   };
+
+   const addFood = (id) => {
+      const selected = menus.filter((menu) => {
+         return menu.id === id;
+      });
+      const existItem = food.filter((item) => {
+         return item.name === selected[0].name;
+      });
+
+      const { date, time } = getDate();
+
+      const { existUncommited, position } = verifyExist(existItem);
+
+      if (existItem.length === 0 || existUncommited === false) {
+         const data = {};
+         const total = parseInt(selected[0].price);
+         data.id = selected[0].name + "-" + date + "-" + time;
+         data.name = selected[0].name;
+         data.price = selected[0].price;
+         data.quantity = 1;
+         data.total = total;
+         data.status = "";
+         data.time = "";
+         data.date = "";
+         setFood([...food, data]);
+         setOrderTotal(orderTotal + total);
+      } else {
+         const quantity = parseInt(existItem[position].quantity) + 1;
+         const total = quantity * parseInt(existItem[position].price);
+         food.forEach((item) => {
+            if (item.name === existItem[position].name) {
+               item.quantity = quantity;
+               item.total = total;
+            }
+         });
+         setOrderTotal(orderTotal + parseInt(existItem[position].price));
+      }
+   };
+
+   const removeFood = (id) => {
+      var total = 0;
+      const filtered = food.filter((item) => {
+         return item.id !== id;
+      });
+      filtered.forEach((item) => {
+         total = total + item.total;
+      });
+      setFood(filtered);
+      setOrderTotal(total);
+   };
+
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      if (values.clientName === "") {
+      if (values.client === "") {
          return toast("Invalid client name", {
             type: "warning",
             autoClose: 2000,
          });
       }
 
-      addOrEditOrder(values);
+      const { date, time } = getDate();
+      var orderStatus = values.status;
+
+      food.forEach((item) => {
+         if (item.date === "" && item.time === "" && item.status === "") {
+            item.status = "committed";
+            item.date = date;
+            item.time = time;
+            orderStatus = "active";
+         }
+      });
+
+      addOrEditOrder({
+         ...values,
+         total: orderTotal,
+         food: food,
+         date: date,
+         time: time,
+         status: orderStatus,
+      });
       setValues({ ...initialStateValues });
+      setFood([]);
+      setOrderTotal(0);
    };
 
    const getOrderById = async (id) => {
       const doc = await db.collection("orders").doc(id).get();
-      setValues({ ...doc.data() });
+      const data = doc.data();
+      setValues(data);
+      setFood(data.food);
+      setOrderTotal(data.total);
    };
 
    useEffect(() => {
       if (orderId === "") {
-         setValues({ ...initialStateValues });
          const { date, time } = getDate();
-         setValues({ ...values, date: date, time: time });
+         setValues({ ...initialStateValues, date: date, time: time });
+         setFood([]);
+         setOrderTotal(0);
       } else {
          getOrderById(orderId);
       }
@@ -75,41 +175,70 @@ const NewOrder = (props) => {
    return (
       <>
          <div className="data responsive-top-margin animateFadeIn animateSlideUp is-animate">
-            <div className="mb-2 p-2">
-               <Button variant="primary" href="/orders">
-                  Back
-               </Button>
+            <div className="mx-1">
+               <Link to="status">
+                  <i className="material-icons text-danger px-2">arrow_back</i>
+               </Link>
             </div>
 
-            <div className="data--container">
+            <div className="data--container mx-5">
                <div className="row">
                   <div className="col-md-6">
                      <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                           <div className="form-group mb-4">
-                              <label className="form-label ">Pay Method</label>
+                        <div className="form-group  mt-4">
+                           <div className="input-group mb-4">
+                              <div className="input-group-text bg-light">
+                                 <i className="material-icons">person</i>
+                              </div>
                               <select
+                                 value={orderId}
                                  className="form-select"
-                                 name="paymethod"
+                                 name="client"
+                                 onChange={handleClientChange}
+                              >
+                                 <option value="">New Client</option>
+                                 {orders.map((item) => (
+                                    <option value={item.id} key={item.id}>
+                                       {item.client}
+                                    </option>
+                                 ))}
+                              </select>
+                           </div>
+                           <div className="input-group mb-4">
+                              <div className="input-group-text bg-light">
+                                 <i className="material-icons">
+                                    account_balance_wallet
+                                 </i>
+                              </div>
+                              <select
+                                 value={values.payMethod}
+                                 className="form-select"
+                                 name="payMethod"
                                  onChange={handleInputChange}
                               >
                                  <option value="cash">Cash</option>
                                  <option value="card">Card</option>
                               </select>
                            </div>
-                           <div className="input-group mb-4">
-                              <div className="input-group-text bg-light">
-                                 <i className="material-icons">person</i>
+
+                           {orderId === "" ? (
+                              <div className="input-group mb-4">
+                                 <div className="input-group-text bg-light">
+                                    <i className="material-icons">add</i>
+                                 </div>
+                                 <input
+                                    type="text"
+                                    value={values.client}
+                                    name="client"
+                                    placeholder="Client Name"
+                                    className="form-control"
+                                    onChange={handleInputChange}
+                                 />
                               </div>
-                              <input
-                                 type="text"
-                                 value={values.clientName}
-                                 name="clientName"
-                                 placeholder="Name"
-                                 className="form-control"
-                                 onChange={handleInputChange}
-                              />
-                           </div>
+                           ) : (
+                              ""
+                           )}
+
                            <div className="input-group mb-4">
                               <div className="input-group-text bg-light">
                                  <i className="material-icons">phone</i>
@@ -134,7 +263,7 @@ const NewOrder = (props) => {
                                  type="number"
                                  name="total"
                                  className="form-control"
-                                 value={values.total}
+                                 value={orderTotal}
                               />
                            </div>
                         </div>
@@ -148,7 +277,7 @@ const NewOrder = (props) => {
                      </form>
                   </div>
                   <div
-                     className="col-md-6  mt-4"
+                     className="col-md-6 mt-4"
                      style={{
                         height: "400px",
                         overflowY: "scroll", //check overflow
@@ -165,27 +294,37 @@ const NewOrder = (props) => {
                            </tr>
                         </thead>
                         <tbody>
-                           {menus.map((item) => (
-                              <tr key={item.id}>
-                                 <td>{item.name}</td>
-                                 <td>${item.price}</td>
-                                 <td className="d-flex justify-content-end">
-                                    <Button
-                                       variant="info"
-                                       onClick={props.onHide}
-                                       size="sm"
-                                    >
-                                       Add
-                                    </Button>
-                                 </td>
-                              </tr>
-                           ))}
+                           {menus.map((item) => {
+                              if (item.show === true) {
+                                 return (
+                                    <tr key={item.id}>
+                                       <td>{item.name}</td>
+                                       <td>${item.price}</td>
+                                       <td className="d-flex justify-content-end">
+                                          <button
+                                             type="button"
+                                             className="btn btn-outline-info justify-content-end"
+                                             onClick={() => addFood(item.id)}
+                                          >
+                                             Add
+                                          </button>
+                                       </td>
+                                    </tr>
+                                 );
+                              }
+                           })}
                         </tbody>
                      </Table>
                   </div>
                </div>
                <div className="col-md mt-6">
-                  <OrderCar />
+                  {food.map((item) => (
+                     <OrderItem
+                        item={item}
+                        removeFood={removeFood}
+                        key={item.id}
+                     />
+                  ))}
                </div>
             </div>
             <div className="data--graph  startAnimationPosition animateGraph"></div>

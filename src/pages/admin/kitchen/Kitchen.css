@@ -1,0 +1,268 @@
+.data {
+   margin: 100px auto 0;
+   padding-top: 20px;
+   position: relative;
+   height: 625px;
+}
+
+.data--graph {
+   background-image: url(../../../images/data-graph-180.svg);
+   -webkit-background-size: 200% 100%;
+   -moz-background-size: 200% 100%;
+   background-size: 200% 100%;
+   background-repeat: repeat-x;
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   z-index: -1;
+}
+
+@media screen and (min-width: 2301px) {
+   .data--graph {
+      width: 100%;
+   }
+}
+
+@media screen and (min-width: 641px) and (max-width: 1072px) {
+   .responsive-top-margin {
+      margin: 150px auto 0;
+   }
+}
+@media screen and (max-width: 640px) {
+   .responsive-top-margin {
+      margin: 100px auto 0;
+   }
+}
+
+.data--container {
+   max-width: 1600px;
+   margin: auto;
+   height: 625px;
+   padding-top: 0px;
+   display: grid;
+}
+
+.animateSlideUp {
+   opacity: 0;
+   -webkit-transform: translateY(25px);
+   -moz-transform: translateY(25px);
+   -ms-transform: translateY(25px);
+   -o-transform: translateY(25px);
+   transform: translateY(25px);
+   -webkit-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   -o-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -o-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   -moz-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -moz-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      -moz-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      -o-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+}
+.animateSlideUp.is-animate {
+   opacity: 1;
+   -webkit-transform: translate(0);
+   -moz-transform: translate(0);
+   -ms-transform: translate(0);
+   -o-transform: translate(0);
+   transform: translate(0);
+}
+.animateFadeIn {
+   opacity: 0;
+   -webkit-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   -o-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -o-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   -moz-transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -moz-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+   transition: opacity 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+      -webkit-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      -moz-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s,
+      -o-transform 0.9s cubic-bezier(0.26, 0.46, 0.45, 0.95) 0s;
+}
+.animateFadeIn.is-animate {
+   opacity: 1;
+}
+@-webkit-keyframes moveGraph {
+   0% {
+      background-position: 0;
+   }
+   to {
+      background-position: 200%;
+   }
+}
+@-moz-keyframes moveGraph {
+   0% {
+      background-position: 0;
+   }
+   to {
+      background-position: 200%;
+   }
+}
+@-o-keyframes moveGraph {
+   0% {
+      background-position: 0;
+   }
+   to {
+      background-position: 200%;
+   }
+}
+@keyframes moveGraph {
+   0% {
+      background-position: 0;
+   }
+   to {
+      background-position: 200%;
+   }
+}
+@-webkit-keyframes openBtn {
+   0% {
+      height: 0;
+      opacity: 0;
+   }
+   to {
+      height: 120px;
+      opacity: 1;
+   }
+}
+@-moz-keyframes openBtn {
+   0% {
+      height: 0;
+      opacity: 0;
+   }
+   to {
+      height: 120px;
+      opacity: 1;
+   }
+}
+@-o-keyframes openBtn {
+   0% {
+      height: 0;
+      opacity: 0;
+   }
+   to {
+      height: 120px;
+      opacity: 1;
+   }
+}
+@keyframes openBtn {
+   0% {
+      height: 0;
+      opacity: 0;
+   }
+   to {
+      height: 120px;
+      opacity: 1;
+   }
+}
+@-webkit-keyframes closeBtn {
+   0% {
+      height: 120px;
+      opacity: 1;
+   }
+   to {
+      height: 0;
+      opacity: 0;
+   }
+}
+@-moz-keyframes closeBtn {
+   0% {
+      height: 120px;
+      opacity: 1;
+   }
+   to {
+      height: 0;
+      opacity: 0;
+   }
+}
+@-o-keyframes closeBtn {
+   0% {
+      height: 120px;
+      opacity: 1;
+   }
+   to {
+      height: 0;
+      opacity: 0;
+   }
+}
+@keyframes closeBtn {
+   0% {
+      height: 120px;
+      opacity: 1;
+   }
+   to {
+      height: 0;
+      opacity: 0;
+   }
+}
+.animateGraph {
+   -webkit-animation-duration: 90s;
+   -moz-animation-duration: 90s;
+   -o-animation-duration: 90s;
+   animation-duration: 90s;
+   -webkit-animation-name: moveGraph;
+   -moz-animation-name: moveGraph;
+   -o-animation-name: moveGraph;
+   animation-name: moveGraph;
+   -webkit-animation-timing-function: linear;
+   -moz-animation-timing-function: linear;
+   -o-animation-timing-function: linear;
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite;
+   -moz-animation-iteration-count: infinite;
+   -o-animation-iteration-count: infinite;
+   animation-iteration-count: infinite;
+   -webkit-animation-direction: normal;
+   -moz-animation-direction: normal;
+   -o-animation-direction: normal;
+   animation-direction: normal;
+}

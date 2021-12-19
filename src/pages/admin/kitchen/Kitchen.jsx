@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import OrderCard from "../../../components/admin/orderCard/OrderCard";
+import KitchenCard from "../../../components/admin/kitchenCard/KitchenCard";
 
 import { db } from "../../../firebase";
 
-import "./Orders.css";
+import "./Kitchen.css";
 
-const Orders = (props) => {
-   const { orders } = props;
+const Kitchen = (props) => {
+   const { orders, onDeleteOrder, setOrderId, changeStatus } = props;
 
    const [cards, setCards] = useState([]);
 
@@ -24,6 +23,34 @@ const Orders = (props) => {
          });
       });
       setCards(data);
+   };
+
+   const updateOrderById = async (card) => {
+      const doc = await db.collection("orders").doc(card.orderId).get();
+      const orderFood = doc.data().food;
+      switch (card.status) {
+         case "committed":
+            orderFood.forEach((item) => {
+               if (item.id === card.id) {
+                  item.status = "progress";
+               }
+            });
+            break;
+         case "progress":
+            orderFood.forEach((item) => {
+               if (item.id === card.id) {
+                  item.status = "served";
+               }
+            });
+            break;
+         default:
+            console.log("No status found");
+            break;
+      }
+
+      await db.collection("orders").doc(card.orderId).update({
+         food: orderFood,
+      });
    };
 
    const deleteFoodCard = async (card) => {
@@ -50,24 +77,19 @@ const Orders = (props) => {
    return (
       <>
          <div className="data responsive-top-margin animateFadeIn animateSlideUp is-animate">
-            <div className="mb-2 ">
-               <Button variant="success" className="mx-4" href="/payments">
-                  Payments
-               </Button>
-               <Button variant="primary" className="mx-1" href="/neworder">
-                  Add or Edit Order
-               </Button>
-            </div>
-
             <div className="data--container">
                <div className="row">
                   <div className="col-md-4 mt-3 p-4 ">
                      <h4 className="text-primary mb-4">Food Committed</h4>
                      {cards.map((item) =>
                         item.status === "committed" ? (
-                           <OrderCard
+                           <KitchenCard
+                              updateOrderById={updateOrderById}
                               deleteFoodCard={deleteFoodCard}
+                              onDeleteOrder={onDeleteOrder}
+                              setOrderId={setOrderId}
                               item={item}
+                              changeStatus={changeStatus}
                               key={item.id}
                            />
                         ) : (
@@ -79,9 +101,13 @@ const Orders = (props) => {
                      <h4 className="text-danger mb-4">Food In Progress</h4>
                      {cards.map((item) =>
                         item.status === "progress" ? (
-                           <OrderCard
+                           <KitchenCard
+                              updateOrderById={updateOrderById}
                               deleteFoodCard={deleteFoodCard}
+                              onDeleteOrder={onDeleteOrder}
+                              setOrderId={setOrderId}
                               item={item}
+                              changeStatus={changeStatus}
                               key={item.id}
                            />
                         ) : (
@@ -90,12 +116,16 @@ const Orders = (props) => {
                      )}
                   </div>
                   <div className="col-md-4 mt-3 p-4 ">
-                     <h4 className="text-success mb-4">Ready To Serve</h4>
+                     <h4 className="text-success mb-4">Food Served</h4>
                      {cards.map((item) =>
                         item.status === "served" ? (
-                           <OrderCard
+                           <KitchenCard
+                              updateOrderById={updateOrderById}
                               deleteFoodCard={deleteFoodCard}
+                              onDeleteOrder={onDeleteOrder}
+                              setOrderId={setOrderId}
                               item={item}
+                              changeStatus={changeStatus}
                               key={item.id}
                            />
                         ) : (
@@ -111,4 +141,4 @@ const Orders = (props) => {
    );
 };
 
-export default Orders;
+export default Kitchen;

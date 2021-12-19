@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/admin/navbar/Navbar";
 import Client from "./pages/client/Client";
 import Menu from "./pages/admin/menu/Menu";
+import Recipes from "./pages/admin/recipes/Recipes";
 import Orders from "./pages/admin/orders/Orders";
 import NewOrder from "./pages/admin/newOrder/NewOrder";
-import Recipes from "./pages/admin/recipes/Recipes";
+import Kitchen from "./pages/admin/kitchen/Kitchen";
+import Payments from "./pages/admin/payments/Payments";
 
 import "./App.css";
 
@@ -15,9 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
    const [menus, setMenus] = useState([]);
-   const [commited, setCommited] = useState([]);
-   const [progress, setProgress] = useState([]);
-   const [served, setServed] = useState([]);
+   const [orders, setOrders] = useState([]);
    const [currentId, setCurrentId] = useState("");
    const [orderId, setOrderId] = useState("");
 
@@ -54,28 +54,12 @@ const App = () => {
          setMenus(docs);
       });
       db.collection("orders").onSnapshot((querySnapshot) => {
-         const commited = [];
-         const progress = [];
-         const served = [];
+         const orders = [];
          querySnapshot.forEach((doc) => {
-            switch (doc.data().status) {
-               case "commited":
-                  commited.push({ ...doc.data(), id: doc.id });
-                  break;
-               case "progress":
-                  progress.push({ ...doc.data(), id: doc.id });
-                  break;
-               case "served":
-                  served.push({ ...doc.data(), id: doc.id });
-                  break;
-               default:
-                  console.log(doc.data().status);
-            }
+            orders.push({ ...doc.data(), id: doc.id });
          });
 
-         setCommited(commited);
-         setProgress(progress);
-         setServed(served);
+         setOrders(orders);
       });
    };
 
@@ -137,20 +121,28 @@ const App = () => {
                   <Route path="/" exact>
                      <Client />
                   </Route>
-                  <Route exact path="/orders">
-                     <Orders
-                        commited={commited}
-                        progress={progress}
-                        served={served}
-                        onDeleteOrder={onDeleteOrder}
-                        setOrderId={setOrderId}
-                     />
+                  <Route exact path="/kitchen">
+                     <Kitchen orders={orders} />
+                  </Route>
+                  <Route exact path="/status">
+                     <Orders orders={orders} />
                   </Route>
                   <Route exact path="/neworder">
                      <NewOrder
                         menus={menus}
+                        orders={orders}
                         addOrEditOrder={addOrEditOrder}
                         orderId={orderId}
+                        setOrderId={setOrderId}
+                     />
+                  </Route>
+                  <Route exact path="/payments">
+                     <Payments
+                        orders={orders}
+                        onDeleteOrder={onDeleteOrder}
+                        addOrEditOrder={addOrEditOrder}
+                        orderId={orderId}
+                        setOrderId={setOrderId}
                      />
                   </Route>
                   <Route path="/food">

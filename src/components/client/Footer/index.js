@@ -16,7 +16,7 @@ const Footer = () => {
          <FooterWrap>
             <SocialMedia>
                <SocialMediaWrap>
-                  <SocialLogo>Contacto </SocialLogo>
+                  {/* <SocialLogo>Contacto </SocialLogo> */}
                   <SocialIcons>
                      <SocialIconLink
                         href="https://www.facebook.com/Rincón-ecológico-Los-cachimbos-100810408515490/"
