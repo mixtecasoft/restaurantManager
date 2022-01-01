@@ -1,8 +1,7 @@
 import React from "react";
 
 const OrderCard = (props) => {
-   const { deleteFoodCard, onDeleteOrder, setOrderId, item, changeStatus } =
-      props;
+   const { deleteFoodCard, item } = props;
    return (
       <div className="card  mt-2 ">
          <div className="d-flex justify-content-between card-header">

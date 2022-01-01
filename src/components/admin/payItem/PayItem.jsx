@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { db } from "../../../firebase";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const PayItem = (props) => {
    const { orderId, setOrderId } = props;

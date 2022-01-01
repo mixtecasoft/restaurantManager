@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/admin/navbar/Navbar";
-import Client from "./pages/client/Client";
 import Menu from "./pages/admin/menu/Menu";
 import Recipes from "./pages/admin/recipes/Recipes";
 import Orders from "./pages/admin/orders/Orders";
@@ -111,21 +110,27 @@ const App = () => {
       }
    };
 
+   const deleteCymbals = async (linkObject) => {
+      try {
+         await db.collection("orders").doc(orderId).update(linkObject);
+         notifyUpdated();
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
    return (
       <Router>
-         {/* <Navbar /> */}
+         <Navbar />
 
          <div className=".container-fluid ">
             <div className="row">
                <Switch>
-                  <Route path="/" exact>
-                     <Client />
+                  <Route exact path="/">
+                     <Orders orders={orders} setOrderId={setOrderId} />
                   </Route>
                   <Route exact path="/kitchen">
                      <Kitchen orders={orders} />
-                  </Route>
-                  <Route exact path="/status">
-                     <Orders orders={orders} />
                   </Route>
                   <Route exact path="/neworder">
                      <NewOrder
@@ -143,6 +148,7 @@ const App = () => {
                         addOrEditOrder={addOrEditOrder}
                         orderId={orderId}
                         setOrderId={setOrderId}
+                        deleteCymbals={deleteCymbals}
                      />
                   </Route>
                   <Route path="/food">

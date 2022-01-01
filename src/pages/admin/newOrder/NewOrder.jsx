@@ -176,7 +176,7 @@ const NewOrder = (props) => {
       <>
          <div className="data responsive-top-margin animateFadeIn animateSlideUp is-animate">
             <div className="mx-1">
-               <Link to="status">
+               <Link to="/">
                   <i className="material-icons text-danger px-2">arrow_back</i>
                </Link>
             </div>
@@ -311,20 +311,24 @@ const NewOrder = (props) => {
                                        </td>
                                     </tr>
                                  );
+                              } else {
+                                 return "";
                               }
                            })}
                         </tbody>
                      </Table>
                   </div>
                </div>
-               <div className="col-md mt-6">
-                  {food.map((item) => (
-                     <OrderItem
-                        item={item}
-                        removeFood={removeFood}
-                        key={item.id}
-                     />
-                  ))}
+               <div className="col-sm mt-6">
+                  <ul className="list-group mt-5">
+                     {food.map((item) => (
+                        <OrderItem
+                           item={item}
+                           removeFood={removeFood}
+                           key={item.id}
+                        />
+                     ))}
+                  </ul>
                </div>
             </div>
             <div className="data--graph  startAnimationPosition animateGraph"></div>

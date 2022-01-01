@@ -22,6 +22,13 @@ const Kitchen = (props) => {
             data.push(foodElement);
          });
       });
+
+      data.sort((a, b) => {
+         var menuA = a.time;
+         var menuB = b.time;
+         return menuA < menuB ? -1 : menuA > menuB ? 1 : 0;
+      });
+
       setCards(data);
    };
 

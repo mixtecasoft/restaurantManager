@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import PayItem from "../../../components/admin/payItem/PayItem";
+import Reports from "../../../components/admin/reports/Reports";
 
 import { Link } from "react-router-dom";
 
 const Payments = (props) => {
-   const { orders, onDeleteOrder, addOrEditOrder, orderId, setOrderId } = props;
+   const {
+      orders,
+      onDeleteOrder,
+      addOrEditOrder,
+      orderId,
+      setOrderId,
+      deleteCymbals,
+   } = props;
 
    const [data, setData] = useState([]);
 
@@ -45,7 +53,7 @@ const Payments = (props) => {
                order.total = total;
                order.food = food;
                order.status = "complete";
-               addOrEditOrder(order);
+               deleteCymbals(order);
             }
          }
       }
@@ -63,7 +71,7 @@ const Payments = (props) => {
       <>
          <div className="data responsive-top-margin animateFadeIn animateSlideUp is-animate">
             <div className="mx-1">
-               <Link to="status">
+               <Link to="/">
                   <i className="material-icons text-danger px-2">arrow_back</i>
                </Link>
             </div>
@@ -123,7 +131,7 @@ const Payments = (props) => {
                      )}
                   </div>
                </div>
-               <div className="col-md mt-6">Here Reports</div>
+               <Reports orders={orders} />
             </div>
             <div className="data--graph  startAnimationPosition animateGraph"></div>
          </div>

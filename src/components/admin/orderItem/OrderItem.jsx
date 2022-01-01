@@ -52,3 +52,31 @@ const OrderItem = (props) => {
 };
 
 export default OrderItem;
+
+// const OrderItem = (props) => {
+//    const { item, removeFood } = props;
+//    return (
+//       <li className="list-group-item d-flex justify-content-between align-items-center ">
+//          {item.name}
+
+//          <div>
+//             <i className="material-icons text-danger mx-4">remove</i>
+
+//             <span class="badge bg-primary rounded-pill px-4 ">
+//                {item.quantity}
+//             </span>
+
+//             <i className="material-icons text-danger mx-4">add</i>
+
+//             <i
+//                className="material-icons text-danger mx-4 "
+//                onClick={() => removeFood(item.id)}
+//             >
+//                delete
+//             </i>
+//          </div>
+//       </li>
+//    );
+// };
+
+// export default OrderItem;

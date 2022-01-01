@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RecipeForm from "../../../components/admin/recipeForm/RecipeForm";
 import RecipeItem from "../../../components/admin/recipeItem/RecipeItem";
 import { Accordion } from "react-bootstrap";
@@ -7,11 +7,9 @@ import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const Recipes = (props) => {
-   const {menus}=props;
-   
-   const [currentId, setCurrentId] = useState("");
+   const { menus } = props;
 
-  
+   const [currentId, setCurrentId] = useState("");
 
    const editRecipe = async (linkObject) => {
       try {

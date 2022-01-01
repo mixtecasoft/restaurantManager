@@ -1,14 +1,7 @@
 import React from "react";
 
 const OrderCard = (props) => {
-   const {
-      updateOrderById,
-      deleteFoodCard,
-      onDeleteOrder,
-      setOrderId,
-      item,
-      changeStatus,
-   } = props;
+   const { updateOrderById, deleteFoodCard, item } = props;
    return (
       <div className="card  mt-2 ">
          <div className="d-flex justify-content-between card-header">
